@@ -19,3 +19,7 @@ This is a simple app to assist Crossout players with playing that good old 1-hou
 
 + You can edit notes and wave info by editing .xlsx file
 + You can suggest more info for the waves file via the Issues tab
+
+## Screenshots
+
+![image](https://cdn.discordapp.com/attachments/509790526887690262/799571585781989416/unknown.png)
