@@ -67,7 +67,7 @@ namespace WavesOverlay
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "ImageForm";
-            this.Text = "Just Image";
+            this.Text = "Waves Info Image";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ImageForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

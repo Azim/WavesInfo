@@ -161,6 +161,7 @@ namespace WavesOverlay
             // 
             // refreshCB
             // 
+            this.refreshCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.refreshCB.AutoSize = true;
             this.refreshCB.Enabled = false;
             this.refreshCB.Location = new System.Drawing.Point(12, 552);
@@ -267,6 +268,7 @@ namespace WavesOverlay
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -397,6 +399,7 @@ namespace WavesOverlay
             // 
             // topmostCB
             // 
+            this.topmostCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.topmostCB.AutoSize = true;
             this.topmostCB.Location = new System.Drawing.Point(12, 529);
             this.topmostCB.Name = "topmostCB";

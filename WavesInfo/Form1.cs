@@ -105,7 +105,6 @@ namespace WavesOverlay
                 }
                 lwaves.Add(wave);
             }
-            waves.Clear();
             waves = lwaves;
             label1.Text = "Loaded " + lwaves.Count + " waves";
             wb.Dispose();
