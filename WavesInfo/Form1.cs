@@ -79,7 +79,8 @@ namespace WavesOverlay
         {
             var wb = new XLWorkbook(file);
             var ws = wb.Worksheet(1);
-            waves = new List<Wave>();
+            List<Wave> lwaves = new List<Wave>();
+             
 
             for(int row = 2; row < 102; row++)
             {
@@ -102,9 +103,11 @@ namespace WavesOverlay
                         wave.AddEnemy(spawn, rrow.Cell(column).GetString());
                     }
                 }
-                waves.Add(wave);
+                lwaves.Add(wave);
             }
-            label1.Text = "Loaded " + waves.Count + " waves";
+            waves.Clear();
+            waves = lwaves;
+            label1.Text = "Loaded " + lwaves.Count + " waves";
             wb.Dispose();
         }
 

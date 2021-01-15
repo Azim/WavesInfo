@@ -165,9 +165,9 @@ namespace WavesOverlay
             this.refreshCB.Enabled = false;
             this.refreshCB.Location = new System.Drawing.Point(12, 552);
             this.refreshCB.Name = "refreshCB";
-            this.refreshCB.Size = new System.Drawing.Size(96, 17);
+            this.refreshCB.Size = new System.Drawing.Size(113, 17);
             this.refreshCB.TabIndex = 9;
-            this.refreshCB.Text = "Autorefresh file";
+            this.refreshCB.Text = "Autorefresh log file";
             this.refreshCB.UseVisualStyleBackColor = true;
             this.refreshCB.CheckedChanged += new System.EventHandler(this.refreshCB_CheckedChanged);
             // 
