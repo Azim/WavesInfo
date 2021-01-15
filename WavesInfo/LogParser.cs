@@ -36,7 +36,7 @@ namespace WavesOverlay
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             Debug.WriteLine("reading further");
-            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 if (endOfread > 0) fs.Seek(endOfread, SeekOrigin.Begin);
                 using (StreamReader sr = new StreamReader(fs))
@@ -65,18 +65,21 @@ namespace WavesOverlay
             if (data.StartsWith("===== Gameplay 'Brawl_NewYear_Convoy' started"))
             {
                 inBrawl = true;
+                convoy = false;
                 wave = 1;
                 Debug.WriteLine("gameplay started, in brawl now");
                 return;
             } else if (data.StartsWith("===== Gameplay finish, reason: unknown"))
             {
                 inBrawl = false;
+                convoy = false;
                 Debug.WriteLine("gameplay finish, not in brawl anymore");
                 return;
             }
             else if(data.StartsWith("====== starting level"))
             {
                 inBrawl = false;
+                convoy = false;
                 Debug.WriteLine("started some level, not in brawl anymore");
                 return;
             }

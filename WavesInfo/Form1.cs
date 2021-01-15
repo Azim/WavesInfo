@@ -63,13 +63,18 @@ namespace WavesOverlay
                 Filter = "EXCEL files (*.xlsx)|*.xlsx",
                 CheckFileExists = true,
                 CheckPathExists = true,
-
+                Multiselect = false,
+                InitialDirectory = Settings.Default.waves
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 label2.Text = dlg.FileName;
+                FileInfo file_info = new FileInfo(dlg.FileName);
+                Settings.Default.waves = file_info.DirectoryName;
+                Settings.Default.Save();
                 loadWavesFromFile(dlg.FileName);
                 button2.Enabled = true;
+
             }
         }
 
@@ -120,7 +125,8 @@ namespace WavesOverlay
                 Filter = "log files (*.log)|*.log",
                 CheckFileExists = true,
                 CheckPathExists = true,
-
+                Multiselect = false,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+ "\\My Games\\Crossout\\logs\\"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -177,7 +183,7 @@ namespace WavesOverlay
             {
                 Bitmap image = new Bitmap(Resources.map_small);
                 pictureBox1.Image.Dispose();
-                pictureBox1.Image = ImageDrawer.updateImage(image, waves[parser.wave - 1]);
+                pictureBox1.Image = ImageDrawer.updateImage(image, waves[parser.wave - (parser.convoy?0:1)]);
             }
             else
             {
@@ -196,11 +202,11 @@ namespace WavesOverlay
             {
                 if (parser.convoy)
                 {
-                    noteLabel.Text = "Wave: " + parser.wave + "\nCargo is moving\n" + waves[parser.wave - 1].Note;
+                    noteLabel.Text = "Wave: " + parser.wave + "\nCargo is moving\nNext: " + waves[parser.wave].Note;
                 }
                 else
                 {
-                    noteLabel.Text = "Wave: " + parser.wave + " \n" + waves[parser.wave - 1].Note;
+                    noteLabel.Text = "Wave: " + parser.wave + " \n" + waves[parser.wave - 1].Note + " \nNext: "+waves[parser.wave].Note;
                 }
             }
             else
@@ -214,7 +220,7 @@ namespace WavesOverlay
             if (refreshCB.Checked)
             {
                 cts = new CancellationTokenSource();
-                parser.runRepeatingTask(refresh, 10, cts.Token);
+                parser.runRepeatingTask(refresh, 2, cts.Token);
             }
             else
             {

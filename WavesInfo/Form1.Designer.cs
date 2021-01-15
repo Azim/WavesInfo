@@ -57,6 +57,7 @@ namespace WavesOverlay
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.topmostCB = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -409,11 +410,21 @@ namespace WavesOverlay
             this.topmostCB.UseVisualStyleBackColor = true;
             this.topmostCB.CheckedChanged += new System.EventHandler(this.topmostCB_CheckedChanged);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(212, 529);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(204, 39);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "Developed by Azim\r\n\r\nDefault wave info collected by LSTR clan";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 708);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.topmostCB);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.noteLabel);
@@ -474,6 +485,7 @@ namespace WavesOverlay
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox topmostCB;
+        private System.Windows.Forms.Label label11;
     }
 }
 
