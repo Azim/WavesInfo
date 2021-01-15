@@ -44,7 +44,7 @@ namespace WavesOverlay
 
         private static readonly Pen red = new Pen(Color.Red, 3), orange = new Pen(Color.Orange, 3);
 
-        public static Bitmap updateImage(Bitmap image, Wave wave)
+        public static Bitmap createImage(Bitmap image, Wave wave)
         {
             using(Graphics g = Graphics.FromImage(image))
             {
@@ -53,14 +53,15 @@ namespace WavesOverlay
                     SpawnInfo spawn = doors[s];
                     drawIcons(g, spawn, wave.spawns[s]);
 
-                    if (s == 5 || s == 12)
+                    if (s == 5 || s == 12) //boss and extra mobs spawns
                     {
                         g.DrawEllipse(orange, new Rectangle(spawn.x1 - 3, spawn.y1 - 3, 6, 6));
                     }
-                    else
+                    else //everything else
                     {
                         g.DrawLine(red, new Point(spawn.x1, spawn.y1), new Point(spawn.x2, spawn.y2));
                     }
+                    g.DrawString("" + wave.Number, new Font(SystemFonts.DefaultFont.FontFamily, 18, FontStyle.Bold), Brushes.Green, 0, 0);
 
                 }
 

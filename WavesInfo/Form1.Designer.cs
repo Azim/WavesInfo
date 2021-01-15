@@ -58,6 +58,7 @@ namespace WavesOverlay
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.topmostCB = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.nextWaveCB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -165,7 +166,7 @@ namespace WavesOverlay
             this.refreshCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.refreshCB.AutoSize = true;
             this.refreshCB.Enabled = false;
-            this.refreshCB.Location = new System.Drawing.Point(12, 552);
+            this.refreshCB.Location = new System.Drawing.Point(12, 528);
             this.refreshCB.Name = "refreshCB";
             this.refreshCB.Size = new System.Drawing.Size(113, 17);
             this.refreshCB.TabIndex = 9;
@@ -287,7 +288,7 @@ namespace WavesOverlay
             this.tableLayoutPanel1.Controls.Add(this.pictureBox4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 0, 6);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 282);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 258);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 8;
@@ -402,7 +403,7 @@ namespace WavesOverlay
             // 
             this.topmostCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.topmostCB.AutoSize = true;
-            this.topmostCB.Location = new System.Drawing.Point(12, 529);
+            this.topmostCB.Location = new System.Drawing.Point(12, 505);
             this.topmostCB.Name = "topmostCB";
             this.topmostCB.Size = new System.Drawing.Size(80, 17);
             this.topmostCB.TabIndex = 26;
@@ -415,15 +416,30 @@ namespace WavesOverlay
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(212, 529);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(204, 39);
+            this.label11.Size = new System.Drawing.Size(204, 78);
             this.label11.TabIndex = 27;
-            this.label11.Text = "Developed by Azim\r\n\r\nDefault wave info collected by LSTR clan";
+            this.label11.Text = "Developed by Azim\r\n\r\nDefault wave info collected by LSTR clan\r\nTODO:\r\nmeasure tim" +
+    "e between waves\r\nshow time until respawn";
+            // 
+            // nextWaveCB
+            // 
+            this.nextWaveCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nextWaveCB.AutoSize = true;
+            this.nextWaveCB.Enabled = false;
+            this.nextWaveCB.Location = new System.Drawing.Point(12, 551);
+            this.nextWaveCB.Name = "nextWaveCB";
+            this.nextWaveCB.Size = new System.Drawing.Size(152, 17);
+            this.nextWaveCB.TabIndex = 28;
+            this.nextWaveCB.Text = "Image window (next wave)";
+            this.nextWaveCB.UseVisualStyleBackColor = true;
+            this.nextWaveCB.CheckedChanged += new System.EventHandler(this.nextWaveCB_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 708);
+            this.Controls.Add(this.nextWaveCB);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.topmostCB);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -486,6 +502,7 @@ namespace WavesOverlay
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox topmostCB;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox nextWaveCB;
     }
 }
 

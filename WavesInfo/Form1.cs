@@ -20,7 +20,7 @@ namespace WavesOverlay
 
         private LogParser parser;
         private CancellationTokenSource cts;
-        private ImageForm imageForm;
+        private ImageForm imageFormCurrent, imageFormNext;
 
         private readonly Dictionary<int, int> spawnToColumn = new Dictionary<int, int>
         {
@@ -97,7 +97,7 @@ namespace WavesOverlay
                 if (rrow.Cell(1).IsEmpty()){
                     break;
                 }
-                Wave wave = new Wave(row);
+                Wave wave = new Wave(row-1);
                 wave.Note = rrow.Cell(2).GetString();
 
                 foreach(int spawn in spawnToColumn.Keys)
@@ -138,6 +138,7 @@ namespace WavesOverlay
                 //imageFileCB.Enabled = true;
                 //textFileCB.Enabled = true;
                 imageWindowCB.Enabled = true;
+                nextWaveCB.Enabled = true;
                 refreshCB.Enabled = true;
             }
         }
@@ -157,14 +158,29 @@ namespace WavesOverlay
         {
             if (imageWindowCB.Checked)
             {
-                imageForm = new ImageForm(imageWindowCB);
-                imageForm.Show();
-                imageForm.updateImage(pictureBox1.Image);
+                imageFormCurrent = new ImageForm(imageWindowCB);
+                imageFormCurrent.Show();
+                imageFormCurrent.updateImage(pictureBox1.Image);
             }
             else
             {
-                if (imageForm == null) return;
-                imageForm.Close();
+                if (imageFormCurrent == null) return;
+                imageFormCurrent.Close();
+            }
+        }
+
+        private void nextWaveCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (nextWaveCB.Checked)
+            {
+                imageFormNext = new ImageForm(nextWaveCB);
+                imageFormNext.Show();
+                if(parser.inBrawl) imageFormNext.updateImage(ImageDrawer.createImage(new Bitmap(Resources.map_small), waves[parser.wave]));
+            }
+            else
+            {
+                if (imageFormNext == null) return;
+                imageFormNext.Close();
             }
         }
 
@@ -183,17 +199,23 @@ namespace WavesOverlay
             {
                 Bitmap image = new Bitmap(Resources.map_small);
                 pictureBox1.Image.Dispose();
-                pictureBox1.Image = ImageDrawer.updateImage(image, waves[parser.wave - (parser.convoy?0:1)]);
+                pictureBox1.Image = ImageDrawer.createImage(image, waves[parser.wave - (parser.convoy?0:1)]);
             }
             else
             {
                 pictureBox1.Image = Resources.map_small;
             }
 
-            if (imageWindowCB.Checked && imageForm != null)
+            if (imageWindowCB.Checked && imageFormCurrent != null)
             {
-                imageForm.updateImage(pictureBox1.Image);
+                imageFormCurrent.updateImage(pictureBox1.Image);
             }
+            if (nextWaveCB.Checked && imageFormNext != null)
+            {
+                imageFormNext.updateImage(parser.inBrawl ? ImageDrawer.createImage(new Bitmap(Resources.map_small), waves[parser.wave]) : pictureBox1.Image);
+            }
+
+
         }
 
         private void updateText()
