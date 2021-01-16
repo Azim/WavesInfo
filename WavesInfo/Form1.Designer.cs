@@ -59,6 +59,16 @@ namespace WavesOverlay
             this.topmostCB = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.nextWaveCB = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.player1label = new System.Windows.Forms.Label();
+            this.player2label = new System.Windows.Forms.Label();
+            this.player3label = new System.Windows.Forms.Label();
+            this.player0label = new System.Windows.Forms.Label();
+            this.player1status = new System.Windows.Forms.Label();
+            this.player2status = new System.Windows.Forms.Label();
+            this.player3status = new System.Windows.Forms.Label();
+            this.player0status = new System.Windows.Forms.Label();
+            this.timeDiff = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -68,6 +78,7 @@ namespace WavesOverlay
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -416,10 +427,9 @@ namespace WavesOverlay
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(212, 529);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(204, 78);
+            this.label11.Size = new System.Drawing.Size(204, 39);
             this.label11.TabIndex = 27;
-            this.label11.Text = "Developed by Azim\r\n\r\nDefault wave info collected by LSTR clan\r\nTODO:\r\nmeasure tim" +
-    "e between waves\r\nshow time until respawn";
+            this.label11.Text = "Developed by Azim\r\n\r\nDefault wave info collected by LSTR clan";
             // 
             // nextWaveCB
             // 
@@ -434,11 +444,118 @@ namespace WavesOverlay
             this.nextWaveCB.UseVisualStyleBackColor = true;
             this.nextWaveCB.CheckedChanged += new System.EventHandler(this.nextWaveCB_CheckedChanged);
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel2.Controls.Add(this.player3label, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.player2label, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.player1label, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.player3status, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.player2status, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.player1status, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.player0status, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.player0label, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(185, 360);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(230, 136);
+            this.tableLayoutPanel2.TabIndex = 29;
+            // 
+            // player1label
+            // 
+            this.player1label.AutoSize = true;
+            this.player1label.Location = new System.Drawing.Point(3, 30);
+            this.player1label.Name = "player1label";
+            this.player1label.Size = new System.Drawing.Size(45, 13);
+            this.player1label.TabIndex = 0;
+            this.player1label.Text = "Player 1";
+            // 
+            // player2label
+            // 
+            this.player2label.AutoSize = true;
+            this.player2label.Location = new System.Drawing.Point(3, 60);
+            this.player2label.Name = "player2label";
+            this.player2label.Size = new System.Drawing.Size(45, 13);
+            this.player2label.TabIndex = 1;
+            this.player2label.Text = "Player 2";
+            // 
+            // player3label
+            // 
+            this.player3label.AutoSize = true;
+            this.player3label.Location = new System.Drawing.Point(3, 90);
+            this.player3label.Name = "player3label";
+            this.player3label.Size = new System.Drawing.Size(45, 13);
+            this.player3label.TabIndex = 2;
+            this.player3label.Text = "Player 3";
+            // 
+            // player0label
+            // 
+            this.player0label.AutoSize = true;
+            this.player0label.Location = new System.Drawing.Point(3, 0);
+            this.player0label.Name = "player0label";
+            this.player0label.Size = new System.Drawing.Size(45, 13);
+            this.player0label.TabIndex = 3;
+            this.player0label.Text = "Player 0";
+            // 
+            // player1status
+            // 
+            this.player1status.AutoSize = true;
+            this.player1status.Location = new System.Drawing.Point(152, 30);
+            this.player1status.Name = "player1status";
+            this.player1status.Size = new System.Drawing.Size(39, 13);
+            this.player1status.TabIndex = 4;
+            this.player1status.Text = "no info";
+            // 
+            // player2status
+            // 
+            this.player2status.AutoSize = true;
+            this.player2status.Location = new System.Drawing.Point(152, 60);
+            this.player2status.Name = "player2status";
+            this.player2status.Size = new System.Drawing.Size(39, 13);
+            this.player2status.TabIndex = 5;
+            this.player2status.Text = "no info";
+            // 
+            // player3status
+            // 
+            this.player3status.AutoSize = true;
+            this.player3status.Location = new System.Drawing.Point(152, 90);
+            this.player3status.Name = "player3status";
+            this.player3status.Size = new System.Drawing.Size(39, 13);
+            this.player3status.TabIndex = 6;
+            this.player3status.Text = "no info";
+            // 
+            // player0status
+            // 
+            this.player0status.AutoSize = true;
+            this.player0status.Location = new System.Drawing.Point(152, 0);
+            this.player0status.Name = "player0status";
+            this.player0status.Size = new System.Drawing.Size(39, 13);
+            this.player0status.TabIndex = 7;
+            this.player0status.Text = "no info";
+            // 
+            // timeDiff
+            // 
+            this.timeDiff.AutoSize = true;
+            this.timeDiff.Location = new System.Drawing.Point(188, 337);
+            this.timeDiff.Name = "timeDiff";
+            this.timeDiff.Size = new System.Drawing.Size(0, 13);
+            this.timeDiff.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 708);
+            this.Controls.Add(this.timeDiff);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.nextWaveCB);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.topmostCB);
@@ -467,6 +584,8 @@ namespace WavesOverlay
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,6 +622,16 @@ namespace WavesOverlay
         private System.Windows.Forms.CheckBox topmostCB;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox nextWaveCB;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label player0status;
+        private System.Windows.Forms.Label player3status;
+        private System.Windows.Forms.Label player2status;
+        private System.Windows.Forms.Label player1status;
+        private System.Windows.Forms.Label player1label;
+        private System.Windows.Forms.Label player2label;
+        private System.Windows.Forms.Label player3label;
+        private System.Windows.Forms.Label player0label;
+        private System.Windows.Forms.Label timeDiff;
     }
 }
 

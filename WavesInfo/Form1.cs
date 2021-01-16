@@ -21,7 +21,7 @@ namespace WavesOverlay
         private LogParser parser;
         private CancellationTokenSource cts;
         private ImageForm imageFormCurrent, imageFormNext;
-
+        private Label[] names, statuses;
         private readonly Dictionary<int, int> spawnToColumn = new Dictionary<int, int>
         {
             {1, 4},
@@ -47,6 +47,8 @@ namespace WavesOverlay
         public Form1()
         {
             InitializeComponent();
+            names = new[] { player0label, player1label, player2label, player3label };
+            statuses = new[] { player0status, player1status, player2status, player3status };
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -131,9 +133,10 @@ namespace WavesOverlay
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 label3.Text = dlg.FileName;
-                parser = new LogParser(dlg.FileName);
+                parser = new LogParser(dlg.FileName, timeDiff);
                 parser.setNewPath(dlg.FileName);
                 refresh();
+                refreshDeaths();
 
                 //imageFileCB.Enabled = true;
                 //textFileCB.Enabled = true;
@@ -193,6 +196,42 @@ namespace WavesOverlay
             }));
         }
 
+        private void refreshDeaths()
+        {
+            if (!parser.inBrawl)
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    names[i].Text = "Player " + i;
+                    statuses[i].Text = "no info";
+                }
+            }
+            else
+            {
+                string[] newstatuses = new string[4];
+                for(int i = 0; i < 4; i++)//checks
+                {
+                    var respawns = parser.players[i].died.AddSeconds(30);
+                    if(respawns < DateTime.Now)
+                    {
+                        newstatuses[i] = "Alive";
+                    }
+                    else
+                    {
+                        newstatuses[i] = "" + Convert.ToInt32((respawns - DateTime.Now).TotalSeconds);
+                    }
+                    
+                }
+                names[0].Invoke(new Action(() => {//apply them
+                    for (int i = 0; i < 4; i++)
+                    {
+                        names[i].Text = parser.players[i].Name;
+                        statuses[i].Text = newstatuses[i];
+                    }
+                }));
+            }
+        }
+
         private void updateImage()
         {
             if (parser.inBrawl)
@@ -243,6 +282,7 @@ namespace WavesOverlay
             {
                 cts = new CancellationTokenSource();
                 parser.runRepeatingTask(refresh, 2, cts.Token);
+                parser.runRepeatingTaskMillis(refreshDeaths, 500, cts.Token);
             }
             else
             {

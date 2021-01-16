@@ -61,7 +61,7 @@ namespace WavesOverlay
                     {
                         g.DrawLine(red, new Point(spawn.x1, spawn.y1), new Point(spawn.x2, spawn.y2));
                     }
-                    g.DrawString("" + wave.Number, new Font(SystemFonts.DefaultFont.FontFamily, 18, FontStyle.Bold), Brushes.Green, 0, 0);
+                    g.DrawString("" + wave.Number, new Font(SystemFonts.DefaultFont.FontFamily, 18, FontStyle.Bold), Brushes.Lime, 0, 0);
 
                 }
 

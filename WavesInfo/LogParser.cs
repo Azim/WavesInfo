@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WavesOverlay
 {
@@ -17,18 +18,29 @@ namespace WavesOverlay
         public int wave { get; set; } = 0;
         private string path { get; set; }
 
-        public LogParser(string path)
+        private DateTime lastTrigger;
+        private Label diff;
+
+        public Dictionary<int, Player> players = new Dictionary<int, Player>();
+
+        public LogParser(string path, Label diff)
         {
             this.path = path;
+            this.diff = diff;
         }
 
         public void setNewPath(string path)
         {
             this.path = path;
-            wave = 0;
-            convoy = false;
+            reset();
+        }
+
+        public void reset()
+        {
+            players.Clear();
             inBrawl = false;
-            endOfread = 0;
+            convoy = false;
+            wave = 0;
         }
 
         public void read()
@@ -67,21 +79,43 @@ namespace WavesOverlay
                 inBrawl = true;
                 convoy = false;
                 wave = 1;
+                updateTimediff(time);
                 Debug.WriteLine("gameplay started, in brawl now");
                 return;
             } else if (data.StartsWith("===== Gameplay finish, reason: unknown"))
             {
-                inBrawl = false;
-                convoy = false;
+                reset();
                 Debug.WriteLine("gameplay finish, not in brawl anymore");
                 return;
             }
             else if(data.StartsWith("====== starting level"))
             {
-                inBrawl = false;
-                convoy = false;
+                reset();
                 Debug.WriteLine("started some level, not in brawl anymore");
                 return;
+            }
+            if (players.Keys.Count < 4 && inBrawl)
+            {
+                if(data.StartsWith("Spawn player"))
+                {
+                    string[] spaces = data.Split(' ');
+                    int number = Int32.Parse(spaces[2]);
+                    string name = spaces[3];
+                    Player player = new Player { NameWithBrackets = name, Name = name.Substring(1, name.Length - 3) };
+                    players[number] = player;
+                    return;
+                }
+            }
+            else if(inBrawl)
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    if(data.StartsWith("Kill. Victim: " + players[i].Name+" "))
+                    {
+                        DateTime deathTime = DateTime.Parse(time);
+                        players[i].died = deathTime;
+                    }
+                }
             }
 
             if (data.StartsWith("Wave:"))
@@ -91,12 +125,14 @@ namespace WavesOverlay
                 string nwave = parts[1];
                 wave = Int32.Parse(nwave);
                 Debug.WriteLine("Found wave: " + wave);
+                updateTimediff(time);
             }
 
             if(data.StartsWith("CONVOY STATE"))
             {
                 convoy = true;
                 Debug.WriteLine("cargo is driving");
+                updateTimediff(time);
             }
             else if (data.StartsWith("DEFENSE STATE"))
             {
@@ -107,8 +143,25 @@ namespace WavesOverlay
                 string nwave = parts[1];
                 wave = Int32.Parse(nwave);
                 Debug.WriteLine("found wave: " + wave);
+                updateTimediff(time);
             }
 
+        }
+
+        private void updateTimediff(string time)
+        {
+            DateTime newtime = DateTime.Parse(time);
+            if (lastTrigger == null)
+            {
+                lastTrigger = newtime;
+                return;
+            }
+            TimeSpan tdiff = newtime - lastTrigger;
+            lastTrigger = newtime;
+            diff.Invoke(new Action(() =>
+            {
+                diff.Text = tdiff.Minutes + "m " + tdiff.Seconds + "s " + tdiff.Milliseconds + "ms";
+            }));
         }
 
         public void runRepeatingTask(Action action, int seconds, CancellationToken token)
@@ -120,6 +173,19 @@ namespace WavesOverlay
                 {
                     action();
                     await Task.Delay(TimeSpan.FromSeconds(seconds), token);
+                }
+            }, token);
+        }
+
+        public void runRepeatingTaskMillis(Action action, int millis, CancellationToken token)
+        {
+            if (action == null)
+                return;
+            Task.Run(async () => {
+                while (!token.IsCancellationRequested)
+                {
+                    action();
+                    await Task.Delay(TimeSpan.FromMilliseconds(millis), token);
                 }
             }, token);
         }
