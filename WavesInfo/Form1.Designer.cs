@@ -60,14 +60,14 @@ namespace WavesOverlay
             this.label11 = new System.Windows.Forms.Label();
             this.nextWaveCB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.player1label = new System.Windows.Forms.Label();
-            this.player2label = new System.Windows.Forms.Label();
             this.player3label = new System.Windows.Forms.Label();
-            this.player0label = new System.Windows.Forms.Label();
-            this.player1status = new System.Windows.Forms.Label();
-            this.player2status = new System.Windows.Forms.Label();
+            this.player2label = new System.Windows.Forms.Label();
+            this.player1label = new System.Windows.Forms.Label();
             this.player3status = new System.Windows.Forms.Label();
+            this.player2status = new System.Windows.Forms.Label();
+            this.player1status = new System.Windows.Forms.Label();
             this.player0status = new System.Windows.Forms.Label();
+            this.player0label = new System.Windows.Forms.Label();
             this.timeDiff = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
@@ -469,14 +469,14 @@ namespace WavesOverlay
             this.tableLayoutPanel2.Size = new System.Drawing.Size(230, 136);
             this.tableLayoutPanel2.TabIndex = 29;
             // 
-            // player1label
+            // player3label
             // 
-            this.player1label.AutoSize = true;
-            this.player1label.Location = new System.Drawing.Point(3, 30);
-            this.player1label.Name = "player1label";
-            this.player1label.Size = new System.Drawing.Size(45, 13);
-            this.player1label.TabIndex = 0;
-            this.player1label.Text = "Player 1";
+            this.player3label.AutoSize = true;
+            this.player3label.Location = new System.Drawing.Point(3, 90);
+            this.player3label.Name = "player3label";
+            this.player3label.Size = new System.Drawing.Size(45, 13);
+            this.player3label.TabIndex = 2;
+            this.player3label.Text = "Player 3";
             // 
             // player2label
             // 
@@ -487,41 +487,14 @@ namespace WavesOverlay
             this.player2label.TabIndex = 1;
             this.player2label.Text = "Player 2";
             // 
-            // player3label
+            // player1label
             // 
-            this.player3label.AutoSize = true;
-            this.player3label.Location = new System.Drawing.Point(3, 90);
-            this.player3label.Name = "player3label";
-            this.player3label.Size = new System.Drawing.Size(45, 13);
-            this.player3label.TabIndex = 2;
-            this.player3label.Text = "Player 3";
-            // 
-            // player0label
-            // 
-            this.player0label.AutoSize = true;
-            this.player0label.Location = new System.Drawing.Point(3, 0);
-            this.player0label.Name = "player0label";
-            this.player0label.Size = new System.Drawing.Size(45, 13);
-            this.player0label.TabIndex = 3;
-            this.player0label.Text = "Player 0";
-            // 
-            // player1status
-            // 
-            this.player1status.AutoSize = true;
-            this.player1status.Location = new System.Drawing.Point(152, 30);
-            this.player1status.Name = "player1status";
-            this.player1status.Size = new System.Drawing.Size(39, 13);
-            this.player1status.TabIndex = 4;
-            this.player1status.Text = "no info";
-            // 
-            // player2status
-            // 
-            this.player2status.AutoSize = true;
-            this.player2status.Location = new System.Drawing.Point(152, 60);
-            this.player2status.Name = "player2status";
-            this.player2status.Size = new System.Drawing.Size(39, 13);
-            this.player2status.TabIndex = 5;
-            this.player2status.Text = "no info";
+            this.player1label.AutoSize = true;
+            this.player1label.Location = new System.Drawing.Point(3, 30);
+            this.player1label.Name = "player1label";
+            this.player1label.Size = new System.Drawing.Size(45, 13);
+            this.player1label.TabIndex = 0;
+            this.player1label.Text = "Player 1";
             // 
             // player3status
             // 
@@ -532,6 +505,24 @@ namespace WavesOverlay
             this.player3status.TabIndex = 6;
             this.player3status.Text = "no info";
             // 
+            // player2status
+            // 
+            this.player2status.AutoSize = true;
+            this.player2status.Location = new System.Drawing.Point(152, 60);
+            this.player2status.Name = "player2status";
+            this.player2status.Size = new System.Drawing.Size(39, 13);
+            this.player2status.TabIndex = 5;
+            this.player2status.Text = "no info";
+            // 
+            // player1status
+            // 
+            this.player1status.AutoSize = true;
+            this.player1status.Location = new System.Drawing.Point(152, 30);
+            this.player1status.Name = "player1status";
+            this.player1status.Size = new System.Drawing.Size(39, 13);
+            this.player1status.TabIndex = 4;
+            this.player1status.Text = "no info";
+            // 
             // player0status
             // 
             this.player0status.AutoSize = true;
@@ -540,6 +531,15 @@ namespace WavesOverlay
             this.player0status.Size = new System.Drawing.Size(39, 13);
             this.player0status.TabIndex = 7;
             this.player0status.Text = "no info";
+            // 
+            // player0label
+            // 
+            this.player0label.AutoSize = true;
+            this.player0label.Location = new System.Drawing.Point(3, 0);
+            this.player0label.Name = "player0label";
+            this.player0label.Size = new System.Drawing.Size(45, 13);
+            this.player0label.TabIndex = 3;
+            this.player0label.Text = "Player 0";
             // 
             // timeDiff
             // 
@@ -572,7 +572,7 @@ namespace WavesOverlay
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Waves Info";
+            this.Text = "Waves Info v1.2";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
