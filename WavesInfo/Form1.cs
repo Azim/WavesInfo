@@ -19,7 +19,7 @@ namespace WavesOverlay
     {
 
         private LogParser parser;
-        private CancellationTokenSource cts;
+        private CancellationTokenSource cts1,cts2;
         private ImageForm imageFormCurrent, imageFormNext;
         private Label[] names, statuses;
         private readonly Dictionary<int, int> spawnToColumn = new Dictionary<int, int>
@@ -143,6 +143,7 @@ namespace WavesOverlay
                 imageWindowCB.Enabled = true;
                 nextWaveCB.Enabled = true;
                 refreshCB.Enabled = true;
+                respawnTimerCB.Enabled = true;
             }
         }
 
@@ -178,7 +179,8 @@ namespace WavesOverlay
             {
                 imageFormNext = new ImageForm(nextWaveCB);
                 imageFormNext.Show();
-                if(parser.inBrawl) imageFormNext.updateImage(ImageDrawer.createImage(new Bitmap(Resources.map_small), waves[parser.wave]));
+                int index = parser.wave + (drawHalfsCB.Checked ? 1 : 0);
+                if (parser.inBrawl) imageFormNext.updateImage(ImageDrawer.createImage(Resources.map_small, waves[index], waves[index + 1], drawHalfsCB.Checked));
             }
             else
             {
@@ -198,47 +200,43 @@ namespace WavesOverlay
 
         private void refreshDeaths()
         {
-            if (!parser.inBrawl)
-            {
-                for(int i = 0; i < 4; i++)
+            names[0].Invoke(new Action(() => {//apply them
+                if (!parser.inBrawl)
                 {
-                    names[i].Text = "Player " + i;
-                    statuses[i].Text = "no info";
-                }
-            }
-            else
-            {
-                string[] newstatuses = new string[4];
-                for(int i = 0; i < 4; i++)//checks
-                {
-                    var respawns = parser.players[i].died.AddSeconds(30);
-                    if(respawns < DateTime.Now)
-                    {
-                        newstatuses[i] = "Alive";
-                    }
-                    else
-                    {
-                        newstatuses[i] = "" + Convert.ToInt32((respawns - DateTime.Now).TotalSeconds);
-                    }
-                    
-                }
-                names[0].Invoke(new Action(() => {//apply them
                     for (int i = 0; i < 4; i++)
                     {
-                        names[i].Text = parser.players[i].Name;
-                        statuses[i].Text = newstatuses[i];
+                        names[i].Text = "Player " + i;
+                        statuses[i].Text = "no info";
                     }
-                }));
-            }
+                }
+                else
+                {
+                    string[] newstatuses = new string[4];
+                    for (int i = 0; i < 4; i++)//checks
+                    {
+                        if (!parser.players.ContainsKey(i)) continue;
+                        var respawns = parser.players[i].died.AddSeconds(30);
+                        if (respawns < DateTime.Now)
+                        {
+                            statuses[i].Text = "Alive";
+                        }
+                        else
+                        {
+                            statuses[i].Text = "" + Convert.ToInt32((respawns - DateTime.Now).TotalSeconds);
+                        }
+                        names[i].Text = parser.players[i].Name;
+                    }
+                }
+            }));
         }
 
         private void updateImage()
         {
             if (parser.inBrawl)
             {
-                Bitmap image = new Bitmap(Resources.map_small);
                 pictureBox1.Image.Dispose();
-                pictureBox1.Image = ImageDrawer.createImage(image, waves[parser.wave - (parser.convoy?0:1)]);
+                int index = parser.wave - (parser.convoy ? 0 : 1);
+                pictureBox1.Image = ImageDrawer.createImage(Resources.map_small, waves[index], waves[index + 1], drawHalfsCB.Checked);
             }
             else
             {
@@ -251,7 +249,8 @@ namespace WavesOverlay
             }
             if (nextWaveCB.Checked && imageFormNext != null)
             {
-                imageFormNext.updateImage(parser.inBrawl ? ImageDrawer.createImage(new Bitmap(Resources.map_small), waves[parser.wave]) : pictureBox1.Image);
+                int index = parser.wave + (drawHalfsCB.Checked ? 1 : 0);
+                imageFormNext.updateImage(parser.inBrawl ? ImageDrawer.createImage(Resources.map_small, waves[index], waves[index + 1], drawHalfsCB.Checked) : pictureBox1.Image);
             }
 
 
@@ -276,18 +275,31 @@ namespace WavesOverlay
             }
         }
 
+        private void respawnTimerCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (respawnTimerCB.Checked)
+            {
+                cts2 = new CancellationTokenSource();
+                parser.runRepeatingTaskMillis(refreshDeaths, 500, cts2.Token);
+            }
+            else
+            {
+                if (cts2 == null) return;
+                cts2.Cancel();
+            }
+        }
+
         private void refreshCB_CheckedChanged(object sender, EventArgs e)
         {
             if (refreshCB.Checked)
             {
-                cts = new CancellationTokenSource();
-                parser.runRepeatingTask(refresh, 2, cts.Token);
-                parser.runRepeatingTaskMillis(refreshDeaths, 500, cts.Token);
+                cts1 = new CancellationTokenSource();
+                parser.runRepeatingTask(refresh, 2, cts1.Token);
             }
             else
             {
-                if (cts == null) return;
-                cts.Cancel();
+                if (cts1 == null) return;
+                cts1.Cancel();
             }
         }
 

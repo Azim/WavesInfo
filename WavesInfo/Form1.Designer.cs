@@ -35,8 +35,6 @@ namespace WavesOverlay
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.imageFileCB = new System.Windows.Forms.CheckBox();
-            this.textFileCB = new System.Windows.Forms.CheckBox();
             this.imageWindowCB = new System.Windows.Forms.CheckBox();
             this.refreshCB = new System.Windows.Forms.CheckBox();
             this.noteLabel = new System.Windows.Forms.Label();
@@ -69,6 +67,8 @@ namespace WavesOverlay
             this.player0status = new System.Windows.Forms.Label();
             this.player0label = new System.Windows.Forms.Label();
             this.timeDiff = new System.Windows.Forms.Label();
+            this.drawHalfsCB = new System.Windows.Forms.CheckBox();
+            this.respawnTimerCB = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -133,38 +133,12 @@ namespace WavesOverlay
             this.label3.TabIndex = 5;
             this.label3.Text = "Log file not selected";
             // 
-            // imageFileCB
-            // 
-            this.imageFileCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.imageFileCB.AutoSize = true;
-            this.imageFileCB.Enabled = false;
-            this.imageFileCB.Location = new System.Drawing.Point(12, 621);
-            this.imageFileCB.Name = "imageFileCB";
-            this.imageFileCB.Size = new System.Drawing.Size(157, 17);
-            this.imageFileCB.TabIndex = 6;
-            this.imageFileCB.Text = "Image file (not implemented)";
-            this.imageFileCB.UseVisualStyleBackColor = true;
-            this.imageFileCB.CheckedChanged += new System.EventHandler(this.imageFileCB_CheckedChanged);
-            // 
-            // textFileCB
-            // 
-            this.textFileCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textFileCB.AutoSize = true;
-            this.textFileCB.Enabled = false;
-            this.textFileCB.Location = new System.Drawing.Point(12, 598);
-            this.textFileCB.Name = "textFileCB";
-            this.textFileCB.Size = new System.Drawing.Size(149, 17);
-            this.textFileCB.TabIndex = 7;
-            this.textFileCB.Text = "Text file (not implemented)";
-            this.textFileCB.UseVisualStyleBackColor = true;
-            this.textFileCB.CheckedChanged += new System.EventHandler(this.textFileCB_CheckedChanged);
-            // 
             // imageWindowCB
             // 
             this.imageWindowCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.imageWindowCB.AutoSize = true;
             this.imageWindowCB.Enabled = false;
-            this.imageWindowCB.Location = new System.Drawing.Point(12, 575);
+            this.imageWindowCB.Location = new System.Drawing.Point(12, 621);
             this.imageWindowCB.Name = "imageWindowCB";
             this.imageWindowCB.Size = new System.Drawing.Size(94, 17);
             this.imageWindowCB.TabIndex = 8;
@@ -177,7 +151,7 @@ namespace WavesOverlay
             this.refreshCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.refreshCB.AutoSize = true;
             this.refreshCB.Enabled = false;
-            this.refreshCB.Location = new System.Drawing.Point(12, 528);
+            this.refreshCB.Location = new System.Drawing.Point(12, 574);
             this.refreshCB.Name = "refreshCB";
             this.refreshCB.Size = new System.Drawing.Size(113, 17);
             this.refreshCB.TabIndex = 9;
@@ -414,7 +388,7 @@ namespace WavesOverlay
             // 
             this.topmostCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.topmostCB.AutoSize = true;
-            this.topmostCB.Location = new System.Drawing.Point(12, 505);
+            this.topmostCB.Location = new System.Drawing.Point(12, 551);
             this.topmostCB.Name = "topmostCB";
             this.topmostCB.Size = new System.Drawing.Size(80, 17);
             this.topmostCB.TabIndex = 26;
@@ -425,7 +399,7 @@ namespace WavesOverlay
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(212, 529);
+            this.label11.Location = new System.Drawing.Point(212, 575);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(204, 39);
             this.label11.TabIndex = 27;
@@ -436,7 +410,7 @@ namespace WavesOverlay
             this.nextWaveCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nextWaveCB.AutoSize = true;
             this.nextWaveCB.Enabled = false;
-            this.nextWaveCB.Location = new System.Drawing.Point(12, 551);
+            this.nextWaveCB.Location = new System.Drawing.Point(12, 597);
             this.nextWaveCB.Name = "nextWaveCB";
             this.nextWaveCB.Size = new System.Drawing.Size(152, 17);
             this.nextWaveCB.TabIndex = 28;
@@ -458,7 +432,7 @@ namespace WavesOverlay
             this.tableLayoutPanel2.Controls.Add(this.player1status, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.player0status, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.player0label, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(185, 360);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(186, 360);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -544,16 +518,42 @@ namespace WavesOverlay
             // timeDiff
             // 
             this.timeDiff.AutoSize = true;
-            this.timeDiff.Location = new System.Drawing.Point(188, 337);
+            this.timeDiff.Location = new System.Drawing.Point(189, 337);
             this.timeDiff.Name = "timeDiff";
             this.timeDiff.Size = new System.Drawing.Size(0, 13);
             this.timeDiff.TabIndex = 8;
+            // 
+            // drawHalfsCB
+            // 
+            this.drawHalfsCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.drawHalfsCB.AutoSize = true;
+            this.drawHalfsCB.Location = new System.Drawing.Point(12, 528);
+            this.drawHalfsCB.Name = "drawHalfsCB";
+            this.drawHalfsCB.Size = new System.Drawing.Size(98, 17);
+            this.drawHalfsCB.TabIndex = 30;
+            this.drawHalfsCB.Text = "Draw only halfs";
+            this.drawHalfsCB.UseVisualStyleBackColor = true;
+            // 
+            // respawnTimerCB
+            // 
+            this.respawnTimerCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.respawnTimerCB.AutoSize = true;
+            this.respawnTimerCB.Enabled = false;
+            this.respawnTimerCB.Location = new System.Drawing.Point(12, 505);
+            this.respawnTimerCB.Name = "respawnTimerCB";
+            this.respawnTimerCB.Size = new System.Drawing.Size(123, 17);
+            this.respawnTimerCB.TabIndex = 31;
+            this.respawnTimerCB.Text = "Player respawn timer";
+            this.respawnTimerCB.UseVisualStyleBackColor = true;
+            this.respawnTimerCB.CheckedChanged += new System.EventHandler(this.respawnTimerCB_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 708);
+            this.Controls.Add(this.respawnTimerCB);
+            this.Controls.Add(this.drawHalfsCB);
             this.Controls.Add(this.timeDiff);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.nextWaveCB);
@@ -563,8 +563,6 @@ namespace WavesOverlay
             this.Controls.Add(this.noteLabel);
             this.Controls.Add(this.refreshCB);
             this.Controls.Add(this.imageWindowCB);
-            this.Controls.Add(this.textFileCB);
-            this.Controls.Add(this.imageFileCB);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
@@ -572,7 +570,7 @@ namespace WavesOverlay
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Waves Info v1.2";
+            this.Text = "Waves Info v1.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -599,8 +597,6 @@ namespace WavesOverlay
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox imageFileCB;
-        private System.Windows.Forms.CheckBox textFileCB;
         private System.Windows.Forms.CheckBox imageWindowCB;
         private System.Windows.Forms.CheckBox refreshCB;
         private System.Windows.Forms.Label noteLabel;
@@ -632,6 +628,8 @@ namespace WavesOverlay
         private System.Windows.Forms.Label player3label;
         private System.Windows.Forms.Label player0label;
         private System.Windows.Forms.Label timeDiff;
+        private System.Windows.Forms.CheckBox drawHalfsCB;
+        private System.Windows.Forms.CheckBox respawnTimerCB;
     }
 }
 

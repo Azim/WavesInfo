@@ -94,7 +94,7 @@ namespace WavesOverlay
                 Debug.WriteLine("started some level, not in brawl anymore");
                 return;
             }
-            if (players.Keys.Count < 4 && inBrawl)
+            if (inBrawl)
             {
                 if(data.StartsWith("Spawn player"))
                 {
@@ -105,15 +105,12 @@ namespace WavesOverlay
                     players[number] = player;
                     return;
                 }
-            }
-            else if(inBrawl)
-            {
-                for(int i = 0; i < 4; i++)
+                foreach(var player in players.Values)
                 {
-                    if(data.StartsWith("Kill. Victim: " + players[i].Name+" "))
+                    if(data.StartsWith("Kill. Victim: " + player.Name+" "))
                     {
                         DateTime deathTime = DateTime.Parse(time);
-                        players[i].died = deathTime;
+                        player.died = deathTime;
                     }
                 }
             }
@@ -176,7 +173,6 @@ namespace WavesOverlay
                 }
             }, token);
         }
-
         public void runRepeatingTaskMillis(Action action, int millis, CancellationToken token)
         {
             if (action == null)

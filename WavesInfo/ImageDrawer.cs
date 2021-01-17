@@ -44,11 +44,41 @@ namespace WavesOverlay
 
         private static readonly Pen red = new Pen(Color.Red, 3), orange = new Pen(Color.Orange, 3);
 
-        public static Bitmap createImage(Bitmap image, Wave wave)
+        public static Bitmap createImage(Bitmap image, Wave wave, Wave next, bool halfs)
         {
-            using(Graphics g = Graphics.FromImage(image))
+            if (!halfs)
             {
-                foreach(int s in wave.spawns.Keys)
+                return drawSingle(new Bitmap(image), wave, true);
+            }
+            else
+            {
+                bool h1 = ((wave.Number - 1) % 10) < 5;
+                bool h2 = ((next.Number - 1) % 10) < 5;
+                Bitmap result = new Bitmap(image.Width, image.Height);
+                Bitmap top = drawSingle(new Bitmap(image), wave, false);
+                Bitmap bottom = drawSingle(new Bitmap(image), next, false);
+                using (Graphics g = Graphics.FromImage(result))
+                {
+                    Rectangle topr = h1 ? new Rectangle(0, 0, image.Width, image.Height / 2) : new Rectangle(0, image.Height / 2, image.Width, image.Height);
+                    g.DrawImage(top, 0, 0, topr, GraphicsUnit.Pixel);
+
+                    Rectangle bottomr = h2 ? new Rectangle(0, 0, image.Width, image.Height / 2) : new Rectangle(0, image.Height / 2, image.Width, image.Height);
+                    g.DrawImage(bottom, 0, image.Height / 2, bottomr, GraphicsUnit.Pixel);
+
+                    g.DrawLine(orange, new Point(0, image.Height / 2), new Point(image.Width, image.Height / 2));
+                    g.DrawString("" + wave.Number, new Font(SystemFonts.DefaultFont.FontFamily, 18, FontStyle.Bold), Brushes.Lime, 2, 2);
+                    g.DrawString("" + next.Number, new Font(SystemFonts.DefaultFont.FontFamily, 18, FontStyle.Bold), Brushes.Lime, 2, 2 + (image.Height / 2));
+
+                }
+                return result;
+            }
+        }
+
+        private static Bitmap drawSingle(Bitmap image, Wave wave, bool draw)
+        {
+            using (Graphics g = Graphics.FromImage(image))
+            {
+                foreach (int s in wave.spawns.Keys)
                 {
                     SpawnInfo spawn = doors[s];
                     drawIcons(g, spawn, wave.spawns[s]);
@@ -61,10 +91,9 @@ namespace WavesOverlay
                     {
                         g.DrawLine(red, new Point(spawn.x1, spawn.y1), new Point(spawn.x2, spawn.y2));
                     }
-                    g.DrawString("" + wave.Number, new Font(SystemFonts.DefaultFont.FontFamily, 18, FontStyle.Bold), Brushes.Lime, 0, 0);
+                    if (draw) g.DrawString("" + wave.Number, new Font(SystemFonts.DefaultFont.FontFamily, 18, FontStyle.Bold), Brushes.Lime, 2, 2);
 
                 }
-
             }
             return image;
         }
